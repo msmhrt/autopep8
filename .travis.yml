@@ -19,6 +19,7 @@ matrix:
         - env: PEP8_VERSION=github
 
 install:
+    - pip install pip==19.3.1
     - if [ "$PEP8_VERSION" == "github" ]; then pip install git+https://github.com/PyCQA/pycodestyle; fi
     - python setup.py build --build-base=".build-$TRAVIS_PYTHON_VERSION" install
 
