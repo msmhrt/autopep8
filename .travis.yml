@@ -18,8 +18,14 @@ matrix:
     allow_failures:
         - env: PEP8_VERSION=github
 
+before_install:
+    - pip freeze
+    - pip install -U pip
+    - pip --version
+    - pip freeze --local | grep -v '^\-e' | cut -d = -f 1 | sed -e '/^numpy$/d' | xargs pip install -U
+    - pip freeze
+
 install:
-    - pip install pip==19.3.1
     - if [ "$PEP8_VERSION" == "github" ]; then pip install git+https://github.com/PyCQA/pycodestyle; fi
     - python setup.py build --build-base=".build-$TRAVIS_PYTHON_VERSION" install
 
